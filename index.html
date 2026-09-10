@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <title>Workwear Selecta</title>
+  <meta name="description" content="Internal workwear allowance selector with product, color and size selection." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="eyebrow">INTERNAL TOOL · MEN'S</div>
+      <h1>WORKWEAR SELECTA</h1>
+    </div>
+
+    <section class="budget-card" aria-label="Allowance summary">
+      <div class="budget-labels">
+        <div>
+          <span class="label">Used</span>
+          <strong id="usedAmount">0 NOK</strong>
+        </div>
+        <div class="budget-right">
+          <span class="label">Remaining</span>
+          <strong id="remainingAmount">5 500 NOK</strong>
+        </div>
+      </div>
+      <div class="budget-track" aria-hidden="true">
+        <div id="budgetFill" class="budget-fill"></div>
+      </div>
+      <div class="budget-meta">
+        <span><strong id="selectedCount">0</strong> selected</span>
+        <span>Allowance <strong>5 500 NOK</strong></span>
+      </div>
+    </section>
+  </header>
+
+  <main class="layout">
+    <section class="catalogue-panel">
+      <div class="toolbar">
+        <label class="search-wrap">
+          <span class="sr-only">Search products</span>
+          <input id="searchInput" type="search" placeholder="Search model, number, category…" autocomplete="off" />
+        </label>
+
+        <label>
+          <span class="sr-only">Filter by collection</span>
+          <select id="collectionFilter">
+            <option value="">All collections</option>
+          </select>
+        </label>
+
+        <label>
+          <span class="sr-only">Filter by category</span>
+          <select id="categoryFilter">
+            <option value="">All categories</option>
+          </select>
+        </label>
+
+        <label>
+          <span class="sr-only">Sort products</span>
+          <select id="sortSelect">
+            <option value="collection">Collection</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="name">Model: A–Z</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="result-row">
+        <span id="resultCount">67 products</span>
+        <button id="clearFilters" class="text-button" type="button">Clear filters</button>
+      </div>
+
+      <div id="productGrid" class="product-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <h2>No products found</h2>
+        <p>Try another collection, category or search term.</p>
+      </div>
+    </section>
+
+    <aside class="selection-panel" aria-label="Selected products">
+      <div class="selection-header">
+        <div>
+          <span class="eyebrow">YOUR SELECTION</span>
+          <h2>Workwear list</h2>
+        </div>
+        <button id="resetSelection" class="text-button danger" type="button">Reset</button>
+      </div>
+
+      <div id="pantsRule" class="selection-rule is-invalid">
+        <div>
+          <strong>PANTS rule</strong>
+          <span>Exactly 1 PANTS item is required.</span>
+        </div>
+        <strong id="pantsRuleStatus">0 / 1 selected</strong>
+      </div>
+
+      <div id="selectionEmpty" class="selection-empty">
+        <p>No products selected yet.</p>
+        <span>Choose products up to the 5 500 NOK allowance.</span>
+      </div>
+
+      <div id="selectionList" class="selection-list"></div>
+
+      <div class="selection-footer">
+        <div class="total-row">
+          <span>Total</span>
+          <strong id="selectionTotal">0 NOK</strong>
+        </div>
+        <div class="remaining-row">
+          <span>Remaining allowance</span>
+          <strong id="selectionRemaining">5 500 NOK</strong>
+        </div>
+        <button id="copySummary" class="primary-button" type="button" disabled>Copy selection</button>
+        <p id="copyStatus" class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </aside>
+  </main>
+
+  <template id="productTemplate">
+    <article class="product-card">
+      <div class="card-topline">
+        <span class="collection-tag"></span>
+        <span class="model-number"></span>
+      </div>
+      <div class="card-copy">
+        <h3 class="model-name"></h3>
+        <p class="category"></p>
+      </div>
+      <div class="product-options">
+        <label class="option-picker color-picker">
+          <span>Color</span>
+          <select class="color-select">
+            <option value="">Choose color</option>
+          </select>
+        </label>
+        <label class="option-picker size-picker">
+          <span>Size</span>
+          <select class="size-select">
+            <option value="">Choose size</option>
+          </select>
+        </label>
+      </div>
+      <div class="card-bottom">
+        <strong class="price"></strong>
+        <button class="select-button" type="button"></button>
+      </div>
+      <div class="disabled-note" hidden></div>
+    </article>
+  </template>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
